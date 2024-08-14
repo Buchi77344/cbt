@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from.models import User
 from django.contrib import messages
 
@@ -17,5 +17,18 @@ def signup(request):
         if password != password1:
             if User.objects.filter(recovery_code=recovery_code).exists():
                 messages.error(request, 'recovery code alrealdy exist')
+                return redirect('signup')
+            else:
+               User.objects.create_user(first_name=first_name,last_name=last_name ,school_name=school_name,password=password)
+               return redirect('login')
+            
+
+        else:
+            messages.error(request, 'password do not match')
+            return redirect('signup')
+               
 
     return render (request, 'admins/signup.html')
+
+def login(request):
+    return render (request,'admins/login.html')
