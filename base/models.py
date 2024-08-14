@@ -39,5 +39,5 @@ class UserID(models.Model):
     generated_id = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
-        return self.generated_id
+        return self.user.username
 
